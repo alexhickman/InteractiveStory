@@ -39,6 +39,21 @@ extension Story {
     var artwork: UIImage {
         return UIImage(named: self.rawValue)!
     }
+    
+    var soundEffectURL: NSURL {
+        let fileName: String
+        
+        switch self {
+        case .Droid, .Home: fileName = "HappyEnding"
+        case .Monster: fileName = "Ominous"
+        default: fileName = "PageTurn"
+        }
+        
+        let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "wav")!
+        
+        return NSURL(fileURLWithPath: path)
+    }
+    
     var text: String {
         switch self {
         case .ReturnTrip(let name):
@@ -54,7 +69,7 @@ extension Story {
         case .Crate:
             return "Unlike everything else around you the crate seems new and...alien. As you examine the create you notice something glinting on the ground beside it. Aha, a key! It must be for the crate..."
         case .Monster:
-            return "You pick up the key and try to unlock the crate, but the key breaks off in the keyhole.You scream out in frustration! Your scream alerts a creature that captures you and takes you away..."
+            return "You pick up the key and try to unlock the crate, but the key breaks off in the keyhole. You scream out in frustration! Your scream alerts a creature that captures you and takes you away..."
         case .Droid(let name):
             return "After a long walk slightly uphill, you end up at the top of a small crater. You look around and are overjoyed to see your robot friend, \(name)-S1124. It had been lost on a previous mission to Mars. You take it back to your ship and fly back to Earth."
         case .Home:
